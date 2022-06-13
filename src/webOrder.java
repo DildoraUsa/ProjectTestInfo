@@ -42,7 +42,6 @@ public class webOrder {
             String totalDiscount = driver.findElement(By.name("ctl00$MainContent$fmwOrder$txtTotal")).getAttribute("value");
             Assert.assertEquals(totalDiscount,String.valueOf(total));
             String read;
-            String byOne="";
         BufferedReader dora = new BufferedReader(new FileReader("src/RandomData.csv"));
         List<String[]> result = new ArrayList<>();
         while ((read=dora.readLine())!=null){
