@@ -20,7 +20,7 @@ public class webOrder {
 
             System.setProperty("webdriver.chrome.driver", "C:\\Users\\omina\\Downloads\\chromedriver_win32\\chromedriver.exe");
             WebDriver driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             driver.get("http://secure.smartbearsoftware.com/samples/TestComplete12/WebOrders/Login.aspx");
             WebElement login = driver.findElement(By.name("ctl00$MainContent$username"));
             WebElement password = driver.findElement(By.name("ctl00$MainContent$password"));
@@ -31,6 +31,7 @@ public class webOrder {
             WebElement quantity =  driver.findElement(By.name("ctl00$MainContent$fmwOrder$txtQuantity"));
             Random rand = new Random();
             int myRand=rand.nextInt(100)+1;
+           driver.findElement(By.name("ctl00$MainContent$fmwOrder$txtQuantity")).sendKeys(Keys.BACK_SPACE);
            quantity.sendKeys(String.valueOf(myRand));
             driver.findElement(By.xpath("//input[@value='Calculate']")).click();
            int total;
@@ -39,6 +40,7 @@ public class webOrder {
             }else {
                     total=(myRand*100)-(myRand*8);
             }
+            Thread.sleep(2000);
             String totalDiscount = driver.findElement(By.name("ctl00$MainContent$fmwOrder$txtTotal")).getAttribute("value");
             Assert.assertEquals(totalDiscount,String.valueOf(total));
             String read;
@@ -48,7 +50,7 @@ public class webOrder {
             String[] each = read.split(",");
             result.add(each);
         }
-        int randNum = (int)(Math.random() * 1000);
+        int randNum = (int)(Math.random() * 1001);
         String[] name = result.get(randNum);
         WebElement fullName = driver.findElement(By.name("ctl00$MainContent$fmwOrder$txtName"));
          WebElement street = driver.findElement(By.name("ctl00$MainContent$fmwOrder$TextBox2"));
